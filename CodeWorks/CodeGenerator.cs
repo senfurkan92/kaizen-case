@@ -2,13 +2,19 @@
 
 namespace CodeWorks
 {
-    public class CodeGenerator
+    public interface ICodeGenerator
+    {
+        string GenerateToken();
+        bool VerifyToken(string token);
+    }
+
+    public class CodeGenerator : ICodeGenerator
     {
         // izin verilen karakterler uzerinden secretkey ile sırası degistirilen karakterler
         private string Characters { get; set; }
 
         // default ise linear olarak 1,3,5 index numaralı karakterleri belirler
-        private Func<int,int,int,int> FindNextLetterIndex { get; set; }
+        private Func<int, int, int, int> FindNextLetterIndex { get; set; }
 
         // secure random numbers uretmek icin kullanilmistir
         private readonly RNGCryptoServiceProvider provider;
@@ -16,7 +22,7 @@ namespace CodeWorks
         public CodeGenerator()
         {
             provider = new RNGCryptoServiceProvider();
-            FindNextLetterIndex = (a,x,b) => a * x + b;
+            FindNextLetterIndex = (a, x, b) => a * x + b;
             Randomize();
         }
 
@@ -49,9 +55,9 @@ namespace CodeWorks
             var secretKeyCharArray = secretKey.ToCharArray().ToList();
             // izin verilen karakter sayısınca donulur
             for (var i = 0; i < allowedCharacters.Length; i++)
-            { 
+            {
                 // secretkey mod i index'indeki char'in ascii kodu alınır
-                var ascii = (int)secretKeyCharArray[i%secretKey.Length];
+                var ascii = (int)secretKeyCharArray[i % secretKey.Length];
                 // ascii modu üzerinden karakterin sonraki index'i belirlenir
                 var nextIndex = ascii % allowedCharacters.Length;
                 // mevcut karakter mevcut index'inden yeni index'ine tasinir
@@ -102,7 +108,7 @@ namespace CodeWorks
         {
             // izin verilemeyen karakter ve length kontolu
             if (token.Length != 8 || token.Any(x => !Characters.Contains(x)))
-            { 
+            {
                 return false;
             }
 
@@ -114,7 +120,7 @@ namespace CodeWorks
             for (var i = 0; i < 3; i = i + 2)
             {
                 if (token[i + 1] != FindNextCharacter(a, Characters.IndexOf(token[i]), b))
-                { 
+                {
                     return false;
                 }
             }
@@ -154,7 +160,7 @@ namespace CodeWorks
         /// <returns></returns>
         private char FindNextCharacter(int a, int x, int b)
         {
-            var calculatedNmb = FindNextLetterIndex(a,x,b);
+            var calculatedNmb = FindNextLetterIndex(a, x, b);
             return Characters[(x + calculatedNmb) % Characters.Length];
         }
     }
