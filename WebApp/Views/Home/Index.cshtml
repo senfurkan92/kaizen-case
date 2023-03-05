@@ -6,13 +6,14 @@
     <div class="flex justify-center gap-4">
         <div class="flex flex-col gap-2">
             <label>Kod Üret</label>
-            <input type="text" class="input input-bordered w-full" />
+            <input id="generateInput" type="text" class="input input-bordered w-full" />
             <button id="generateBtn" class="btn btn-sm btn-outline btn-accent">Üret</button>
         </div>
         <div class="flex flex-col gap-2">
             <label>Kontrol Et</label>
-            <input type="text" class="input input-bordered w-full" />
+            <input id="verifyInput" type="text" class="input input-bordered w-full" />
             <button id="verifyBtn" class="btn btn-sm btn-outline btn-accent">Kontrol</button>
+            <span id="verifyMsg"></span>
         </div>
     </div>
 </div>
@@ -22,11 +23,30 @@
     <script>
 
         document.getElementById("generateBtn").addEventListener("click", () => {
-        
+            fetch("/api/code/create")
+                .then(x => x.json())
+                .then(x => {
+                    console.log(x)
+                    document.getElementById("generateInput").value = x.code
+                })
         })
 
-        document.getElementById("generateBtn").addEventListener("click", () => {
-
+        document.getElementById("verifyBtn").addEventListener("click", () => {
+            let code = document.getElementById("verifyInput").value
+            fetch("/api/code/verify?code=" + code)
+                .then(x => x.json())
+                .then(x => {
+                    console.log(x)
+                    if (x.isVerified) {
+                        document.getElementById("verifyMsg").classList.add("text-success")
+                        document.getElementById("verifyMsg").classList.remove("text-error")
+                        document.getElementById("verifyMsg").innerText = "Geçerli kod"
+                    } else {
+                        document.getElementById("verifyMsg").classList.remove("text-success")
+                        document.getElementById("verifyMsg").classList.add("text-error")
+                        document.getElementById("verifyMsg").innerText = "Geçersiz kod"
+                    }
+                })
         })
 
     </script>

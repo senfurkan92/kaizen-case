@@ -10,12 +10,12 @@
 </head>
 <body data-theme="business">
 
-    <div class="grid grid-rows-[max-content_auto_max-content] container mx-auto min-h-[100vh]">
+    <div class="grid grid-rows-[max-content_auto_max-content] min-h-[100vh]">
         <header>
             @await Component.InvokeAsync(nameof(WebApp.Components.HeaderComponent))
         </header>
 
-        <main>
+        <main class="container mx-auto">
             @RenderBody()
         </main>
 

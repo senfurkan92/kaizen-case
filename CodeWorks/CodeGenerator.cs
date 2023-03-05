@@ -107,7 +107,7 @@ namespace CodeWorks
         public bool VerifyToken(string token)
         {
             // izin verilemeyen karakter ve length kontolu
-            if (token.Length != 8 || token.Any(x => !Characters.Contains(x)))
+            if (string.IsNullOrEmpty(token) || token.Length != 8 || token.Any(x => !Characters.Contains(x)))
             {
                 return false;
             }
