@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebApp</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.3/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body data-theme="business">
+
+    <div class="grid grid-rows-[max-content_auto_max-content] container mx-auto min-h-[100vh]">
+        <header>
+            @await Component.InvokeAsync(nameof(WebApp.Components.HeaderComponent))
+        </header>
+
+        <main>
+            @RenderBody()
+        </main>
+
+        <footer>
+            @await Component.InvokeAsync(nameof(WebApp.Components.FooterComponent))
+        </footer>
+    </div>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
