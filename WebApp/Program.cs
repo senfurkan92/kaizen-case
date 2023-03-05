@@ -1,7 +1,10 @@
+using CodeWorks;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+builder.Services.AddSingleton<ICodeGenerator, CodeGenerator>(x => new CodeGenerator("my-secret-key", (a,x,b) => a*x+b));
 
 var app = builder.Build();
 
@@ -23,5 +26,10 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapAreaControllerRoute(
+    name: "Services",
+    areaName: "Services",
+    pattern: "/api/{controller}/{action}");
 
 app.Run();

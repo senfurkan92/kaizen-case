@@ -17,4 +17,8 @@
     <Folder Include="Areas\Services\Views\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CodeWorks\CodeWorks.csproj" />
+  </ItemGroup>
+
 </Project>
