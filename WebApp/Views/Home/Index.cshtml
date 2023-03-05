@@ -1,12 +1,12 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Kod Yönetimi";
 }
 
 <div class="md:px-8 px-4 py-10">
     <div class="flex justify-center gap-4">
         <div class="flex flex-col gap-2">
             <label>Kod Üret</label>
-            <input id="generateInput" type="text" class="input input-bordered w-full" />
+            <input id="generateInput" type="text" class="input input-bordered w-full" readonly/>
             <button id="generateBtn" class="btn btn-sm btn-outline btn-accent">Üret</button>
         </div>
         <div class="flex flex-col gap-2">
@@ -32,6 +32,7 @@
         })
 
         document.getElementById("verifyBtn").addEventListener("click", () => {
+            document.getElementById("verifyMsg").innerText = ""
             let code = document.getElementById("verifyInput").value
             fetch("/api/code/verify?code=" + code)
                 .then(x => x.json())

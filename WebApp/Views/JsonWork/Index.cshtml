@@ -1,0 +1,35 @@
+﻿@model List<Row>
+
+@{
+    ViewData["Title"] = "Fis";
+}
+
+<div class="md:px-8 px-4 py-10">
+    <div class="flex justify-center gap-4">
+        <div style="width: clamp(300px, 50vw, 800px)" class="p-4 border border-base-content">
+            <table class="table w-full">
+                <thead>
+                    <tr>
+                        <th>line</th>
+                        <th>text</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 1; i <= Model.Count; i++)
+                    {
+                        <tr>
+                            <td class="p-0">
+                                @i
+                            </td>
+                            <td class="p-0">
+                                @string.Join(" ", Model[i-1].Elements.Select(x => x.Content).ToList())
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table> 
+        </div>
+    </div>
+</div>
+
+
