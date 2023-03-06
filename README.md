@@ -1,7 +1,7 @@
 # kaizen-case
 
 - bu proje **.net 7** ile hazirlanmistir
-- proje calistirmak icin WebApp katmanın **set as startup project** ile isaretlenmesi gerekir
+- projeyi calistirmak icin WebApp katmanın **set as startup project** ile isaretlenmesi gerekir
 - sonrasinda visual studio'da run edilmesi yeterlidir
 
 ### API
@@ -10,4 +10,4 @@
 ### UI
 - projede 2 adet view vardır
 - '/' url'de kod uretilmesi ve dogrulanmasi yapilir
-- 'fis' url'de response.json cozumlemesi yapilmaktadir
+- '/fis' url'de response.json cozumlemesi yapilmaktadir
